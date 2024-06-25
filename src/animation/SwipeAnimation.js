@@ -10,7 +10,7 @@ import Animated, {
   rotate,
 } from 'react-native-reanimated';
 import { GestureHandlerRootView, PanGestureHandler, State, Gesture } from 'react-native-gesture-handler';
-import Card from '../components/tindercard/'
+import Card from '../components/tindercard/index'
 import users from '../../assets/data/users';
 
 const ROTATION = 60;
