@@ -1,8 +1,12 @@
 import React,{useState} from "react";
 import {Text, Image, View, StyleSheet, ImageBackground} from 'react-native'
 import Navigation from "./src/components/tindercard/navbar/navbar";
+import LoginScreen from "./src/components/LoginScreen/LoginScreen";
+import SignUpScreen from "./src/components/SignUpScreen/SignUpScreen";
+import ConfirmSignUpScreen from "./src/components/ConfirmSignUpScreen/ConfirmSignUpScreen";
 const App = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const handleLike = () => {
     console.log('Liked!');
     setCurrentIndex((prevIndex) => prevIndex + 1);
@@ -19,11 +23,17 @@ const App = () => {
     // Add logic for superliking the current card
   };
   return (
-    <Navigation 
-      handleLike={handleLike} 
-      handleUnlike={handleUnlike} 
-      handleSuperlike={handleSuperlike} 
-    />
+    <View style={styles.pageContainer}>
+      {isLoggedIn ? (
+        <Navigation 
+          handleLike={handleLike} 
+          handleUnlike={handleUnlike} 
+          handleSuperlike={handleSuperlike} 
+        />
+      ) : (
+        <ConfirmSignUpScreen />
+      )}
+    </View>
   );
 
 

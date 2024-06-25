@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, SectionList, FlatList, Image, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -42,12 +42,18 @@ const DATA = [
   ];
   
   const MatchesScreen = ({ navigation }) => {
-    const renderMatchItem = ({ item }) => (
-      <View style={styles.matchItem}>
-        <Image source={{ uri: item.image }} style={styles.matchImage} />
-        <Text style={styles.matchName}>{item.name}</Text>
-      </View>
-    );
+    const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const renderMatchItem = ({ item }) => (
+    <TouchableOpacity style={styles.matchItem} onPress={() => navigation.navigate('Chat', { name: item.name })}>
+      <Image source={{ uri: item.image }} style={styles.matchImage} />
+      <Text style={styles.matchName}>{item.name}</Text>
+    </TouchableOpacity>
+  );
   
     const renderTextItem = ({ item }) => (
       <TouchableOpacity

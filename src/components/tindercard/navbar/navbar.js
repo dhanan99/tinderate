@@ -1,17 +1,26 @@
 import React from 'react';
 import {Text, Image, View, StyleSheet, ImageBackground} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HomeScreen from '../../HomeScreen/HomeScreen'
 import MatchesScreen from '../../MatchesScreen/MatchesScreen'
 import ProfileScreen from '../../ProfileScreen/ProfileScreen';
+import ChatScreen from '../../ChatScreen/ChatScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const MatchesStack = () => (
+  <Stack.Navigator screenOptions={{headerShown: false}}>
+    <Stack.Screen name="MatchesMain" component={MatchesScreen} />
+    <Stack.Screen name="Chat" component={ChatScreen} />
+  </Stack.Navigator>
+);
 
 const Navigation = ({ handleLike, handleUnlike, handleSuperlike }) => {
   return (
-    
     <NavigationContainer>
       <View>
             <Image source={{uri: 'https://logos-world.net/wp-content/uploads/2020/09/Tinder-Logo.png'}} style={styles.tinderIcon} />
@@ -40,7 +49,7 @@ const Navigation = ({ handleLike, handleUnlike, handleSuperlike }) => {
         <Tab.Screen name="Home">
           {() => <HomeScreen handleLike={handleLike} handleUnlike={handleUnlike} handleSuperlike={handleSuperlike} />}
         </Tab.Screen>
-        <Tab.Screen name="Matches" component={MatchesScreen} />
+        <Tab.Screen name="Matches" component={MatchesStack} />
         <Tab.Screen name="Profile" component={ProfileScreen} />
       </Tab.Navigator>
     </NavigationContainer>
