@@ -1,13 +1,13 @@
 import React from 'react';
-import {Text, Image, View, StyleSheet, ImageBackground} from 'react-native'
+import { Image, View, StyleSheet} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import HomeScreen from '../../HomeScreen/HomeScreen'
-import MatchesScreen from '../../MatchesScreen/MatchesScreen'
-import ProfileScreen from '../../ProfileScreen/ProfileScreen';
-import ChatScreen from '../../ChatScreen/ChatScreen';
+import HomeScreen from '../../../Screens/HomeScreen/HomeScreen'
+import MatchesScreen from '../../../Screens/MatchesScreen/MatchesScreen'
+import ProfileScreen from '../../../Screens/ProfileScreen/ProfileScreen';
+import ChatScreen from '../../../Screens/ChatScreen/ChatScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,7 +21,7 @@ const MatchesStack = () => (
 
 const Navigation = ({ handleLike, handleUnlike, handleSuperlike }) => {
   return (
-    <NavigationContainer>
+    <NavigationContainer independent={true}>
       <View>
             <Image source={{uri: 'https://logos-world.net/wp-content/uploads/2020/09/Tinder-Logo.png'}} style={styles.tinderIcon} />
         </View>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, TextInput } from 'react-native';
 
-const CustomInput = ({Value,setValue,placeholder,secureTextEntry}) => {Value
+const CustomInput = ({Value,setValue,placeholder,secureTextEntry}) => {
   return (
     <View style={styles.container}>
       <TextInput

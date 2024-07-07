@@ -1,39 +1,22 @@
 import React,{useState} from "react";
 import {Text, Image, View, StyleSheet, ImageBackground} from 'react-native'
 import Navigation from "./src/components/tindercard/navbar/navbar";
-import LoginScreen from "./src/components/LoginScreen/LoginScreen";
-import SignUpScreen from "./src/components/SignUpScreen/SignUpScreen";
-import ConfirmSignUpScreen from "./src/components/ConfirmSignUpScreen/ConfirmSignUpScreen";
+import LoginNavigation from "./src/Screens/LoginNavigation/LoginNavigation";
+import LoginScreen from "./src/Screens/LoginScreen/LoginScreen";
 const App = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const handleLike = () => {
-    console.log('Liked!');
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    // Add logic for liking the current card
-  };
-  const handleUnlike = () => {
-    console.log('Unliked!');
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    // Add logic for unliking the current card
-  };
-  const handleSuperlike = () => {
-    console.log('Super Liked!');
-    setCurrentIndex((prevIndex) => prevIndex + 1);
-    // Add logic for superliking the current card
-  };
-  return (
-    <View style={styles.pageContainer}>
-      {isLoggedIn ? (
-        <Navigation 
-          handleLike={handleLike} 
-          handleUnlike={handleUnlike} 
-          handleSuperlike={handleSuperlike} 
-        />
-      ) : (
-        <ConfirmSignUpScreen />
-      )}
-    </View>
+   return (
+    // <View style={styles.pageContainer}>
+    //   {isLoggedIn ? (
+    //     <Navigation 
+    //       handleLike={handleLike} 
+    //       handleUnlike={handleUnlike} 
+    //       handleSuperlike={handleSuperlike} 
+    //     />
+    //   ) : (
+    //     <LoginNavigation />
+    //   )}
+    // </View>
+    <LoginNavigation />
   );
 
 

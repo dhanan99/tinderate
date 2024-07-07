@@ -1,15 +1,19 @@
 import React,{useState} from 'react';
 import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
-import CustomInput from '../CustomInput/CustomInput';
-import CustomButton from '../CustomButton/CustomButton';
-const ConfirmSignUpScreen = () => {
+import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButton/CustomButton';
+
+const ConfirmSignUpScreen = ({ navigation }) => {
 
   const [confirmationcode,setconfirmationcode] = useState('');
+
   const onConfirmPressed = () => {
     console.warn("onConfirmPressed");
+    navigation.navigate("HomeScreen");
   };
   const BackToSignInPressed = () => {
     console.warn("BackToSignInPressed");
+    navigation.navigate("SignIn");
   };
   const onResendCodePressed = () => {
     console.warn("onResendCodePressed");

@@ -1,18 +1,21 @@
 import React,{useState} from 'react';
 import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
-import CustomInput from '../CustomInput/CustomInput';
-import CustomButton from '../CustomButton/CustomButton';
-const SignUpScreen = () => {
+import CustomInput from '../../components/CustomInput/CustomInput';
+import CustomButton from '../../components/CustomButton/CustomButton';
 
+
+const SignUpScreen = ({ navigation }) => {
   const [username,setUsername] = useState('');
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [PasswordRepeat,setPasswordRepeat] = useState('');
   const onRegisterPressed = () => {
     console.warn("onRegisterPressed");
+    navigation.navigate("ConfirmEmail");
   };
   const onTermsofUsePressed = () => {
     console.warn("onTermsofUsePressed");
+    
   };
   const onPrivacyPolicy = () => {
     console.warn("onPrivacyPolicy");
