@@ -1,16 +1,36 @@
 import React,{useState} from 'react';
-import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
+import { Text, StyleSheet, Image, SafeAreaView, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
+const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
 
 const ForgotPasswordScreen = ({ navigation }) => {
 
   const [username,setusername] = useState('');
-  const onSendPressed = () => {
-    console.warn("onConfirmPressed");
+  const sendConfirmationCode = async () => {
+    try {
+      const response = await fetch(`${API_URL}/send-confirmation-code`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username }),
+      });
+
+      if (response.ok) {
+        setIsCodeSent(true);
+        Alert.alert('Confirmation code sent to your email.');
+      } else {
+        Alert.alert('Failed to send confirmation code.');
+      }
+    } catch (error) {
+      console.error('Error sending confirmation code', error);
+      Alert.alert('An error occurred. Please try again.');
+    }
     navigation.navigate("NewPassword");
   };
+    
   const BackToSignInPressed = () => {
     console.warn("BackToSignInPressed");
     navigation.navigate("SignIn");
@@ -28,7 +48,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
           Value = {username} 
           setValue = {setusername} 
         />
-        <CustomButton text="Send" onPress={onSendPressed} />
+        <CustomButton text="Send" onPress={sendConfirmationCode} />
         <CustomButton text="Back to Sign In" onPress={BackToSignInPressed} type='TERTIARY'/>
       </SafeAreaView>
     // </ScrollView>

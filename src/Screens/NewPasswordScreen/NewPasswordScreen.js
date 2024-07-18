@@ -7,10 +7,32 @@ const NewPasswordScreen = ({ navigation }) => {
 
   const [confirmationcode,setconfirmationcode] = useState('');
   const [newpassword,setnewpassword] = useState('');
-  const onConfirmPressed = () => {
-    console.warn("onConfirmPressed");
-    navigation.navigate("HomeScreen");
+  const verifyConfirmationCode = async () => {
+    try {
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('confirmation_code', confirmationCode);
+
+      const response = await fetch(`${API_URL}/verify-confirmation-code/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+      });
+
+      if (response.ok) {
+        Alert.alert('Confirmation code verified.');
+        navigation.navigate("HomeScreen");
+      } else {
+        Alert.alert('Invalid confirmation code.');
+      }
+    } catch (error) {
+      console.error('Error verifying confirmation code', error);
+      Alert.alert('An error occurred. Please try again.');
+    }
   };
+    
   const BackToSignInPressed = () => {
     console.warn("BackToSignInPressed")
     navigation.navigate("SignIn");;
@@ -33,7 +55,7 @@ const NewPasswordScreen = ({ navigation }) => {
           Value = {newpassword} 
           setValue = {setnewpassword} 
         />
-        <CustomButton text="Confirm" onPress={onConfirmPressed} />
+        <CustomButton text="Confirm" onPress={verifyConfirmationCode} />
         <CustomButton text="Back to Sign In" onPress={BackToSignInPressed} type='TERTIARY'/>
       </SafeAreaView>
     // </ScrollView>

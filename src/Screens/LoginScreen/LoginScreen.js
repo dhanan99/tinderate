@@ -2,8 +2,9 @@ import React,{useState} from 'react';
 import { View, Text, StyleSheet, Image, SafeAreaView, ScrollView,Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
+import axios from 'axios';
 
-const API_URL = 'http://192.168.1.3:8000';
+const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
 
 const LoginScreen = ({ navigation }) => {
 
@@ -14,24 +15,26 @@ const LoginScreen = ({ navigation }) => {
       const formData = new URLSearchParams();
       formData.append('username', username);
       formData.append('password', password);
-      const formDataString = new URLSearchParams(formData).toString();
-      const response = await fetch(`http://192.168.1.3:1343/token`, {
+      console.log("uname:", username)
+      console.log("password:", password)
+      const response = await fetch(`${API_URL}/token`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        body: formData.toString(),
       });
-      console.log('Debug', response.json());
+      // const response = await fetch(`https://cm9tkdbh-8000.inc1.devtunnels.ms/`, {
+      //   method: 'GET'
+      // });
+      console.log("Response", response)
       if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful', data);
+        console.log('Login Successful', response);
         navigation.navigate('HomeScreen');
-      } 
-      else {
+      } else {
         const errorData = await response.json();
         console.log('Login unsuccessful', errorData);
-        Alert.alert(`Error: ${errorData.detail}`);
+        Alert.alert('Please enter valid credentials');
       }
     } catch (error) {
       console.error('Login error', error);
