@@ -1,26 +1,31 @@
 import React,{useState} from 'react';
-import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
+import { Text, StyleSheet, Image, SafeAreaView, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
+const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
+
 const NewPasswordScreen = ({ navigation }) => {
 
+  const [email,setemail] = useState('');
   const [confirmationcode,setconfirmationcode] = useState('');
   const [newpassword,setnewpassword] = useState('');
+
   const verifyConfirmationCode = async () => {
     try {
       const formData = new URLSearchParams();
       formData.append('email', email);
-      formData.append('confirmation_code', confirmationCode);
+      formData.append('confirmation_code', confirmationcode);
+      formData.append('password', newpassword);
 
-      const response = await fetch(`${API_URL}/verify-confirmation-code/`, {
+      const response = await fetch(`${API_URL}/verify-confirmation-code`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: formData.toString(),
       });
-
+      console.log(response)
       if (response.ok) {
         Alert.alert('Confirmation code verified.');
         navigation.navigate("HomeScreen");
@@ -45,6 +50,11 @@ const NewPasswordScreen = ({ navigation }) => {
           style={styles.tinderIcon}
         />
         <Text style={styles.title}>Reset Password</Text>
+        <CustomInput 
+          placeholder = "Enter the Email" 
+          Value = {email} 
+          setValue = {setemail} 
+        />
         <CustomInput 
           placeholder = "Enter the confirmation code" 
           Value = {confirmationcode} 

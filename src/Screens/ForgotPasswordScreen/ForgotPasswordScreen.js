@@ -7,7 +7,7 @@ const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
 
 const ForgotPasswordScreen = ({ navigation }) => {
 
-  const [username,setusername] = useState('');
+  const [email,setemail] = useState('');
   const sendConfirmationCode = async () => {
     try {
       const response = await fetch(`${API_URL}/send-confirmation-code`, {
@@ -15,12 +15,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username }),
+        body: JSON.stringify({ email }),
       });
-
+      console.log(response)
       if (response.ok) {
-        setIsCodeSent(true);
         Alert.alert('Confirmation code sent to your email.');
+        navigation.navigate("NewPassword");
       } else {
         Alert.alert('Failed to send confirmation code.');
       }
@@ -28,7 +28,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
       console.error('Error sending confirmation code', error);
       Alert.alert('An error occurred. Please try again.');
     }
-    navigation.navigate("NewPassword");
+    
   };
     
   const BackToSignInPressed = () => {
@@ -44,9 +44,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
         />
         <Text style={styles.title}>Reset Password</Text>
         <CustomInput 
-          placeholder = "Username" 
-          Value = {username} 
-          setValue = {setusername} 
+          placeholder = "Email" 
+          Value = {email} 
+          setValue = {setemail} 
         />
         <CustomButton text="Send" onPress={sendConfirmationCode} />
         <CustomButton text="Back to Sign In" onPress={BackToSignInPressed} type='TERTIARY'/>

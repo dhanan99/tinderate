@@ -1,17 +1,44 @@
 import React,{useState} from 'react';
-import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
+import { Text, StyleSheet, Image, SafeAreaView, Alert} from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
+const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
 
 const SignUpScreen = ({ navigation }) => {
   const [username,setUsername] = useState('');
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [PasswordRepeat,setPasswordRepeat] = useState('');
-  const onRegisterPressed = () => {
-    console.warn("onRegisterPressed");
-    navigation.navigate("ConfirmEmail");
+  const onRegisterPressed = async() => {
+    if (password !== PasswordRepeat) {
+      Alert.alert('Passwords do not match');
+      return;
+    }
+    try {
+      const response = await fetch(`${API_URL}/send-confirmation-code`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      console.log(response)
+      if (response.ok) {
+        Alert.alert('Confirmation code sent to your email.');
+        navigation.navigate("ConfirmEmail",{
+          username: username,
+          email: email,
+          password: password,
+        });
+      } else {
+        Alert.alert('Failed to send confirmation code.');
+      }
+    } catch (error) {
+      console.error('Error sending confirmation code', error);
+      Alert.alert('An error occurred. Please try again.');
+    }
+    
   };
   const onTermsofUsePressed = () => {
     console.warn("onTermsofUsePressed");

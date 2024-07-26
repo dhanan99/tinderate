@@ -1,15 +1,42 @@
 import React,{useState} from 'react';
-import { Text, StyleSheet, Image, SafeAreaView,} from 'react-native';
+import { Text, StyleSheet, Image, SafeAreaView, Alert } from 'react-native';
 import CustomInput from '../../components/CustomInput/CustomInput';
 import CustomButton from '../../components/CustomButton/CustomButton';
 
-const ConfirmSignUpScreen = ({ navigation }) => {
+const API_URL = 'https://cm9tkdbh-8000.inc1.devtunnels.ms';
+
+
+const ConfirmSignUpScreen = ({ route, navigation }) => {
 
   const [confirmationcode,setconfirmationcode] = useState('');
+  const { username, email, password} = route.params;
+  const onConfirmPressed = async () => {
+    try {
+      const formData = new URLSearchParams();
+      formData.append('email', email);
+      formData.append('username', username);
+      formData.append('password', password);
+      formData.append('confirmation_code', confirmationcode);
 
-  const onConfirmPressed = () => {
-    console.warn("onConfirmPressed");
-    navigation.navigate("HomeScreen");
+      const response = await fetch(`${API_URL}/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: formData.toString(),
+      });
+      console.log(response)
+      if (response.ok) {
+        Alert.alert('Confirmation code verified.');
+        navigation.navigate("HomeScreen");
+      } else {
+        Alert.alert('Invalid confirmation code.');
+      }
+    } catch (error) {
+      console.error('Error verifying confirmation code', error);
+      Alert.alert('An error occurred. Please try again.');
+    }
+    
   };
   const BackToSignInPressed = () => {
     console.warn("BackToSignInPressed");
@@ -32,7 +59,7 @@ const ConfirmSignUpScreen = ({ navigation }) => {
           setValue = {setconfirmationcode} 
         />
         <CustomButton text="Confirm" onPress={onConfirmPressed} />
-        <CustomButton text="Resend Code" onPress={onResendCodePressed} type='TERTIARY'/>
+        {/* <CustomButton text="Resend Code" onPress={onResendCodePressed} type='TERTIARY'/> */}
         <CustomButton text="Back to Sign In" onPress={BackToSignInPressed} type='TERTIARY'/>
       </SafeAreaView>
     // </ScrollView>
