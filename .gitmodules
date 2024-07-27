@@ -1,0 +1,3 @@
+[submodule "tinderate_bkend"]
+	path = tinderate_bkend
+	url = https://github.com/dhanan99/tinderate_bkend
