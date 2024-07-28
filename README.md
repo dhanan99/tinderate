@@ -20,8 +20,8 @@ Prerequisites
 # Frontend Setup
 * Clone the repository:
 ```
-git clone <your-repo-url>
-cd tinder-clone/frontend
+git clone https://github.com/dhanan99/tinderate.git
+cd tinderate/
 ```
 Install dependencies:
 ```
@@ -35,8 +35,6 @@ expo start
 # Backend Setup
 Navigate to the backend directory:
 
-
-cd tinder-clone/tinder_bkend
 Create and activate a virtual environment:
 
 ```
@@ -46,24 +44,28 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 
 Install dependencies:
 
-
+```
 pip install -r requirements.txt
+```
 Run the FastAPI server:
 
 ```
 uvicorn main:app --reload
 ```
-Environment Variables
 
-Running the App
-Make sure both the frontend and backend servers are running.
-Open the Expo app on your mobile device or an emulator.
-Scan the QR code from the Expo server to open the app.
+# Running the App
+* Make sure both the frontend and backend servers are running.
+* Open the Expo app on your mobile device or an emulator.
+* Scan the QR code from the Expo server to open the app.
 # Usage
-Sign Up: Register a new account.
-Log In: Log in to the app using your credentials.
-Profile: View and edit your profile information.
-Match: Swipe through potential matches.
+Sign Up: Register a new account.  
+Log In: Log in to the app using your credentials.  
+Profile: View and edit your profile information.  
+Match: Swipe through potential matches.  
 
 # License
 This project is licensed under the MIT License.
+
+
+https://github.com/user-attachments/assets/f4a14074-fdb8-4631-895f-77b3b1be36b5
+
